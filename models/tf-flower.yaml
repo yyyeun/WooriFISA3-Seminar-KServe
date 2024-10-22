@@ -1,0 +1,16 @@
+apiVersion: "serving.kserve.io/v1beta1"
+kind: "InferenceService"
+metadata:
+  name: "tf-flower"
+  namespace: "kserve-test"
+spec:
+  predictor:
+    canaryTrafficPercent: 20  # 트래픽의 20%를 새로운 모델로 보냄
+    model:
+      modelFormat:
+        name: "tensorflow"
+      storageUri: "gs://kfserving-examples/models/tensorflow/flowers-2"  # 기존: "gs://kfserving-examples/models/tensorflow/flowers" 
+      resources:
+        requests:
+          cpu: "500m"
+          memory: "1Gi"
